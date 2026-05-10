@@ -1,0 +1,521 @@
+{
+  "status": "PUBLISHED",
+  "settings": {
+    "language": "en",
+    "hasProgressBar": true,
+    "pageAutoJump": false,
+    "saveForLater": true,
+    "hasSelfEmailNotifications": false,
+    "hasRespondentEmailNotifications": false
+  },
+  "blocks": [
+    {
+      "uuid": "b0000001-0000-0000-0000-000000000001",
+      "type": "FORM_TITLE",
+      "groupUuid": "b0000001-0000-0000-0000-000000000001",
+      "groupType": "FORM_TITLE",
+      "payload": {
+        "html": "<strong>Your Financial Protection &amp; Investment Profile</strong>",
+        "button": { "label": "Start survey" }
+      }
+    },
+
+    {
+      "uuid": "b0000002-0000-0000-0000-000000000002",
+      "type": "TEXT",
+      "groupUuid": "b0000002-0000-0000-0000-000000000002",
+      "groupType": "TEXT",
+      "payload": {
+        "html": "<p>This short survey helps us understand your current situation and priorities — so we can have a meaningful conversation about your coverage and financial plans. Takes about 5 minutes.</p>"
+      }
+    },
+
+    {
+      "uuid": "b0000003-0000-0000-0000-000000000003",
+      "type": "TITLE",
+      "groupUuid": "b0000003-0000-0000-0000-000000000003",
+      "groupType": "TITLE",
+      "payload": {
+        "html": "<strong>Part 1 — About You</strong>"
+      }
+    },
+
+    {
+      "uuid": "b0000010-0000-0000-0000-000000000010",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000010-0000-0000-0000-000000000010",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>Which life stage best describes you right now?</p>",
+        "options": [
+          { "id": "opt-01-1", "text": "Single, starting out (20s–30s)" },
+          { "id": "opt-01-2", "text": "Married, no children yet" },
+          { "id": "opt-01-3", "text": "Young family (children under 12)" },
+          { "id": "opt-01-4", "text": "Family with teens / older kids" },
+          { "id": "opt-01-5", "text": "Pre-retiree (planning retirement in 1–10 years)" },
+          { "id": "opt-01-6", "text": "Retired" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000011-0000-0000-0000-000000000011",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000011-0000-0000-0000-000000000011",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>What is your approximate monthly household income (SGD)?</p>",
+        "options": [
+          { "id": "opt-02-1", "text": "Below $3,000" },
+          { "id": "opt-02-2", "text": "$3,000 – $5,999" },
+          { "id": "opt-02-3", "text": "$6,000 – $9,999" },
+          { "id": "opt-02-4", "text": "$10,000 – $14,999" },
+          { "id": "opt-02-5", "text": "$15,000 and above" },
+          { "id": "opt-02-6", "text": "Prefer not to say" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000012-0000-0000-0000-000000000012",
+      "type": "CHECKBOXES",
+      "groupUuid": "b0000012-0000-0000-0000-000000000012",
+      "groupType": "CHECKBOXES",
+      "payload": {
+        "html": "<p>What are your main financial responsibilities right now? <em>(Select all that apply)</em></p>",
+        "options": [
+          { "id": "opt-03-1", "text": "Supporting myself only" },
+          { "id": "opt-03-2", "text": "Supporting a spouse / partner" },
+          { "id": "opt-03-3", "text": "Raising children" },
+          { "id": "opt-03-4", "text": "Supporting elderly parents" },
+          { "id": "opt-03-5", "text": "Paying a mortgage / home loan" },
+          { "id": "opt-03-6", "text": "Running a business" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000020-0000-0000-0000-000000000020",
+      "type": "TITLE",
+      "groupUuid": "b0000020-0000-0000-0000-000000000020",
+      "groupType": "TITLE",
+      "payload": {
+        "html": "<strong>Part 2 — Coverage Awareness</strong>"
+      }
+    },
+
+    {
+      "uuid": "b0000021-0000-0000-0000-000000000021",
+      "type": "LINEAR_SCALE",
+      "groupUuid": "b0000021-0000-0000-0000-000000000021",
+      "groupType": "LINEAR_SCALE",
+      "payload": {
+        "html": "<p>How well do you feel you understand your existing insurance policies?</p>",
+        "startValue": 1,
+        "endValue": 5,
+        "startLabel": "Not at all",
+        "endLabel": "Very well"
+      }
+    },
+
+    {
+      "uuid": "b0000022-0000-0000-0000-000000000022",
+      "type": "CHECKBOXES",
+      "groupUuid": "b0000022-0000-0000-0000-000000000022",
+      "groupType": "CHECKBOXES",
+      "payload": {
+        "html": "<p>Which types of insurance do you currently hold? <em>(Select all that apply)</em></p>",
+        "options": [
+          { "id": "opt-05-1", "text": "MediShield Life (mandatory)" },
+          { "id": "opt-05-2", "text": "Integrated Shield Plan (IP)" },
+          { "id": "opt-05-3", "text": "Life insurance (term or whole life)" },
+          { "id": "opt-05-4", "text": "Critical illness cover" },
+          { "id": "opt-05-5", "text": "Personal accident plan" },
+          { "id": "opt-05-6", "text": "Investment-linked policy (ILP)" },
+          { "id": "opt-05-7", "text": "Endowment / savings plan" },
+          { "id": "opt-05-8", "text": "Not sure what I have" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000023-0000-0000-0000-000000000023",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000023-0000-0000-0000-000000000023",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>When did you last review your insurance coverage?</p>",
+        "options": [
+          { "id": "opt-06-1", "text": "Within the last 12 months" },
+          { "id": "opt-06-2", "text": "1–3 years ago" },
+          { "id": "opt-06-3", "text": "More than 3 years ago" },
+          { "id": "opt-06-4", "text": "Never reviewed it" },
+          { "id": "opt-06-5", "text": "Not sure" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000030-0000-0000-0000-000000000030",
+      "type": "TITLE",
+      "groupUuid": "b0000030-0000-0000-0000-000000000030",
+      "groupType": "TITLE",
+      "payload": {
+        "html": "<strong>Part 3 — Attitudes &amp; Concerns</strong>"
+      }
+    },
+
+    {
+      "uuid": "b0000031-0000-0000-0000-000000000031",
+      "type": "CHECKBOXES",
+      "groupUuid": "b0000031-0000-0000-0000-000000000031",
+      "groupType": "CHECKBOXES",
+      "payload": {
+        "html": "<p>Which financial risks concern you the most? <em>(Select up to 3)</em></p>",
+        "options": [
+          { "id": "opt-07-1", "text": "Serious illness or hospitalisation costs" },
+          { "id": "opt-07-2", "text": "Not having enough savings for retirement" },
+          { "id": "opt-07-3", "text": "Losing income due to disability or illness" },
+          { "id": "opt-07-4", "text": "Leaving my family without financial support if I pass away" },
+          { "id": "opt-07-5", "text": "Rising costs of living / inflation eating into savings" },
+          { "id": "opt-07-6", "text": "Children's education expenses" },
+          { "id": "opt-07-7", "text": "Eldercare costs for parents" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000032-0000-0000-0000-000000000032",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000032-0000-0000-0000-000000000032",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>How would you describe your attitude towards investing?</p>",
+        "options": [
+          { "id": "opt-08-1", "text": "Very conservative — I prefer low risk, stable returns" },
+          { "id": "opt-08-2", "text": "Balanced — willing to accept some risk for moderate returns" },
+          { "id": "opt-08-3", "text": "Growth-oriented — comfortable with market ups and downs" },
+          { "id": "opt-08-4", "text": "Aggressive — seeking higher returns, high risk tolerance" },
+          { "id": "opt-08-5", "text": "I haven't thought much about investing yet" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000033-0000-0000-0000-000000000033",
+      "type": "LINEAR_SCALE",
+      "groupUuid": "b0000033-0000-0000-0000-000000000033",
+      "groupType": "LINEAR_SCALE",
+      "payload": {
+        "html": "<p>How satisfied are you with your current financial planning overall?</p>",
+        "startValue": 1,
+        "endValue": 5,
+        "startLabel": "Very unsatisfied",
+        "endLabel": "Very satisfied"
+      }
+    },
+
+    {
+      "uuid": "b0000040-0000-0000-0000-000000000040",
+      "type": "TITLE",
+      "groupUuid": "b0000040-0000-0000-0000-000000000040",
+      "groupType": "TITLE",
+      "payload": {
+        "html": "<strong>Part 4 — Goals &amp; Gaps</strong>"
+      }
+    },
+
+    {
+      "uuid": "b0000041-0000-0000-0000-000000000041",
+      "type": "CHECKBOXES",
+      "groupUuid": "b0000041-0000-0000-0000-000000000041",
+      "groupType": "CHECKBOXES",
+      "payload": {
+        "html": "<p>Are there areas where you feel your protection may be lacking? <em>(Select all that apply)</em></p>",
+        "options": [
+          { "id": "opt-10-1", "text": "Income replacement if I can't work" },
+          { "id": "opt-10-2", "text": "Hospitalisation — worried about ward class or rider gaps" },
+          { "id": "opt-10-3", "text": "Critical illness sum assured feels too low" },
+          { "id": "opt-10-4", "text": "Life cover (death benefit) for my dependants" },
+          { "id": "opt-10-5", "text": "Long-term care / disability in old age" },
+          { "id": "opt-10-6", "text": "Retirement income — not sure CPF LIFE is enough" },
+          { "id": "opt-10-7", "text": "I feel fairly well covered overall" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000042-0000-0000-0000-000000000042",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000042-0000-0000-0000-000000000042",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>What is your primary financial goal in the next 5 years?</p>",
+        "options": [
+          { "id": "opt-11-1", "text": "Build up emergency savings" },
+          { "id": "opt-11-2", "text": "Grow wealth / invest for returns" },
+          { "id": "opt-11-3", "text": "Fund children's education" },
+          { "id": "opt-11-4", "text": "Pay down mortgage / reduce debt" },
+          { "id": "opt-11-5", "text": "Prepare for retirement" },
+          { "id": "opt-11-6", "text": "Ensure family is protected if something happens to me" },
+          { "id": "opt-11-7", "text": "Leave a legacy for my children" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000043-0000-0000-0000-000000000043",
+      "type": "MULTIPLE_CHOICE",
+      "groupUuid": "b0000043-0000-0000-0000-000000000043",
+      "groupType": "MULTIPLE_CHOICE",
+      "payload": {
+        "html": "<p>How much are you currently setting aside for savings or investments each month (SGD)?</p>",
+        "options": [
+          { "id": "opt-12-1", "text": "Less than $200" },
+          { "id": "opt-12-2", "text": "$200 – $499" },
+          { "id": "opt-12-3", "text": "$500 – $999" },
+          { "id": "opt-12-4", "text": "$1,000 – $1,999" },
+          { "id": "opt-12-5", "text": "$2,000 and above" },
+          { "id": "opt-12-6", "text": "Nothing at the moment" }
+        ],
+        "hasOtherOption": false,
+        "isMultiSelect": false
+      }
+    },
+
+    {
+      "uuid": "b0000044-0000-0000-0000-000000000044",
+      "type": "TEXTAREA",
+      "groupUuid": "b0000044-0000-0000-0000-000000000044",
+      "groupType": "TEXTAREA",
+      "payload": {
+        "html": "<p>Anything else you'd like us to know before our conversation?</p>",
+        "placeholder": "E.g. specific concerns, past experiences, anything on your mind…"
+      }
+    },
+
+    {
+      "uuid": "b0000050-0000-0000-0000-000000000050",
+      "type": "TITLE",
+      "groupUuid": "b0000050-0000-0000-0000-000000000050",
+      "groupType": "TITLE",
+      "payload": {
+        "html": "<strong>Part 5 — Policy Summary</strong>"
+      }
+    },
+
+    {
+      "uuid": "b0000051-0000-0000-0000-000000000051",
+      "type": "TEXT",
+      "groupUuid": "b0000051-0000-0000-0000-000000000051",
+      "groupType": "TEXT",
+      "payload": {
+        "html": "<p>Help us see the full picture by sharing what policies you currently hold. Fill in what you know — even partial information is useful.</p>"
+      }
+    },
+
+    {
+      "uuid": "b0000052-0000-0000-0000-000000000052",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000052-0000-0000-0000-000000000052",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 1 — Insurer / Company</p>",
+        "placeholder": "e.g. AIA, Prudential, NTUC Income, Great Eastern…"
+      }
+    },
+
+    {
+      "uuid": "b0000053-0000-0000-0000-000000000053",
+      "type": "DROPDOWN",
+      "groupUuid": "b0000053-0000-0000-0000-000000000053",
+      "groupType": "DROPDOWN",
+      "payload": {
+        "html": "<p>Policy 1 — Policy Type</p>",
+        "options": [
+          { "id": "opt-p1t-1", "text": "MediShield Life / Integrated Shield Plan" },
+          { "id": "opt-p1t-2", "text": "Term life" },
+          { "id": "opt-p1t-3", "text": "Whole life" },
+          { "id": "opt-p1t-4", "text": "Critical illness" },
+          { "id": "opt-p1t-5", "text": "Personal accident" },
+          { "id": "opt-p1t-6", "text": "Endowment / savings plan" },
+          { "id": "opt-p1t-7", "text": "Investment-linked policy (ILP)" },
+          { "id": "opt-p1t-8", "text": "Annuity / retirement plan" },
+          { "id": "opt-p1t-9", "text": "Other" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000054-0000-0000-0000-000000000054",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000054-0000-0000-0000-000000000054",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 1 — Sum Assured / Coverage (SGD)</p>",
+        "placeholder": "e.g. $200,000"
+      }
+    },
+
+    {
+      "uuid": "b0000055-0000-0000-0000-000000000055",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000055-0000-0000-0000-000000000055",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 1 — Annual Premium (SGD)</p>",
+        "placeholder": "e.g. $3,600"
+      }
+    },
+
+    {
+      "uuid": "b0000056-0000-0000-0000-000000000056",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000056-0000-0000-0000-000000000056",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 1 — Premium Payment Until Age</p>",
+        "placeholder": "e.g. 65, 70, 99"
+      }
+    },
+
+    {
+      "uuid": "b0000057-0000-0000-0000-000000000057",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000057-0000-0000-0000-000000000057",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 1 — Riders Attached (if any)</p>",
+        "placeholder": "e.g. early CI rider, waiver of premium, hospital cash…"
+      }
+    },
+
+    {
+      "uuid": "b0000058-0000-0000-0000-000000000058",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000058-0000-0000-0000-000000000058",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 2 — Insurer / Company <em>(if applicable)</em></p>",
+        "placeholder": "e.g. Manulife, Singlife, Tokio Marine…"
+      }
+    },
+
+    {
+      "uuid": "b0000059-0000-0000-0000-000000000059",
+      "type": "DROPDOWN",
+      "groupUuid": "b0000059-0000-0000-0000-000000000059",
+      "groupType": "DROPDOWN",
+      "payload": {
+        "html": "<p>Policy 2 — Policy Type</p>",
+        "options": [
+          { "id": "opt-p2t-1", "text": "MediShield Life / Integrated Shield Plan" },
+          { "id": "opt-p2t-2", "text": "Term life" },
+          { "id": "opt-p2t-3", "text": "Whole life" },
+          { "id": "opt-p2t-4", "text": "Critical illness" },
+          { "id": "opt-p2t-5", "text": "Personal accident" },
+          { "id": "opt-p2t-6", "text": "Endowment / savings plan" },
+          { "id": "opt-p2t-7", "text": "Investment-linked policy (ILP)" },
+          { "id": "opt-p2t-8", "text": "Annuity / retirement plan" },
+          { "id": "opt-p2t-9", "text": "Other" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000060-0000-0000-0000-000000000060",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000060-0000-0000-0000-000000000060",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 2 — Sum Assured / Coverage (SGD)</p>",
+        "placeholder": "e.g. $100,000"
+      }
+    },
+
+    {
+      "uuid": "b0000061-0000-0000-0000-000000000061",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000061-0000-0000-0000-000000000061",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 2 — Annual Premium (SGD)</p>",
+        "placeholder": "e.g. $1,800"
+      }
+    },
+
+    {
+      "uuid": "b0000062-0000-0000-0000-000000000062",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000062-0000-0000-0000-000000000062",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Policy 2 — Riders Attached (if any)</p>",
+        "placeholder": "e.g. total permanent disability rider, retrenchment benefit…"
+      }
+    },
+
+    {
+      "uuid": "b0000063-0000-0000-0000-000000000063",
+      "type": "CHECKBOXES",
+      "groupUuid": "b0000063-0000-0000-0000-000000000063",
+      "groupType": "CHECKBOXES",
+      "payload": {
+        "html": "<p>CPF &amp; Investment Accounts — which do you currently have? <em>(Select all that apply)</em></p>",
+        "options": [
+          { "id": "opt-14-1", "text": "CPF OA / SA / RA — basic contributions only" },
+          { "id": "opt-14-2", "text": "Voluntary CPF top-ups (SA / RA)" },
+          { "id": "opt-14-3", "text": "CPF Investment Scheme (CPFIS)" },
+          { "id": "opt-14-4", "text": "Supplementary Retirement Scheme (SRS)" },
+          { "id": "opt-14-5", "text": "Unit trusts / robo-advisors (e.g. StashAway, Syfe, Endowus)" },
+          { "id": "opt-14-6", "text": "Stocks / ETFs (SGX, US markets)" },
+          { "id": "opt-14-7", "text": "Fixed deposits / T-bills / Singapore Savings Bonds" },
+          { "id": "opt-14-8", "text": "None of the above" }
+        ]
+      }
+    },
+
+    {
+      "uuid": "b0000064-0000-0000-0000-000000000064",
+      "type": "INPUT_TEXT",
+      "groupUuid": "b0000064-0000-0000-0000-000000000064",
+      "groupType": "INPUT_TEXT",
+      "payload": {
+        "html": "<p>Full Name</p>",
+        "placeholder": "Your full name"
+      }
+    },
+
+    {
+      "uuid": "b0000065-0000-0000-0000-000000000065",
+      "type": "INPUT_EMAIL",
+      "groupUuid": "b0000065-0000-0000-0000-000000000065",
+      "groupType": "INPUT_EMAIL",
+      "payload": {
+        "html": "<p>Email Address</p>",
+        "placeholder": "you@example.com"
+      }
+    },
+
+    {
+      "uuid": "b0000066-0000-0000-0000-000000000066",
+      "type": "INPUT_PHONE_NUMBER",
+      "groupUuid": "b0000066-0000-0000-0000-000000000066",
+      "groupType": "INPUT_PHONE_NUMBER",
+      "payload": {
+        "html": "<p>Mobile Number</p>",
+        "placeholder": "+65 9XXX XXXX"
+      }
+    }
+  ]
+}
