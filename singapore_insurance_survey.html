@@ -1,0 +1,482 @@
+
+<style>
+  :root {
+    --teal-50: #E1F5EE; --teal-100: #9FE1CB; --teal-400: #1D9E75; --teal-600: #0F6E56; --teal-800: #085041;
+    --blue-50: #E6F1FB; --blue-400: #378ADD; --blue-600: #185FA5; --blue-800: #0C447C;
+    --amber-50: #FAEEDA; --amber-400: #BA7517; --amber-600: #854F0B; --amber-800: #633806;
+    --coral-50: #FAECE7; --coral-400: #D85A30; --coral-600: #993C1D; --coral-800: #712B13;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans, system-ui); }
+
+  .survey-wrap { max-width: 680px; padding: 2rem 0 3rem; }
+  .survey-header { margin-bottom: 2rem; }
+  .survey-header h1 { font-size: 20px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 6px; }
+  .survey-header p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+
+  .progress-bar-wrap { margin-bottom: 2rem; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .progress-track { height: 4px; background: var(--color-border-tertiary); border-radius: 4px; }
+  .progress-fill { height: 100%; border-radius: 4px; background: var(--teal-400); transition: width 0.4s ease; }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  .section-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; padding: 4px 10px; border-radius: 20px; margin-bottom: 1rem; }
+  .badge-profile { background: var(--teal-50); color: var(--teal-800); }
+  .badge-awareness { background: var(--blue-50); color: var(--blue-800); }
+  .badge-attitude { background: var(--amber-50); color: var(--amber-800); }
+  .badge-protection { background: var(--coral-50); color: var(--coral-800); }
+  .badge-investment { background: var(--teal-50); color: var(--teal-800); }
+  .badge-summary { background: var(--blue-50); color: var(--blue-800); }
+
+  .section-title { font-size: 16px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 1.5rem; }
+
+  .q-block { margin-bottom: 1.75rem; }
+  .q-label { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; line-height: 1.5; }
+  .q-sub { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 10px; }
+
+  .option-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opt-btn { font-size: 13px; color: var(--color-text-secondary); background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 7px 14px; cursor: pointer; transition: all 0.15s; }
+  .opt-btn:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+  .opt-btn.selected { background: var(--teal-50); border-color: var(--teal-400); color: var(--teal-800); font-weight: 500; }
+
+  .scale-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .scale-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--color-text-secondary); margin-top: 4px; }
+  .scale-btn { width: 38px; height: 38px; border-radius: 50%; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-primary); font-size: 13px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; justify-content: center; color: var(--color-text-secondary); }
+  .scale-btn:hover { border-color: var(--teal-400); color: var(--teal-600); }
+  .scale-btn.selected { background: var(--teal-400); border-color: var(--teal-400); color: #fff; font-weight: 500; }
+
+  input[type="text"], select, textarea { width: 100%; font-size: 14px; padding: 9px 12px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); background: var(--color-background-primary); color: var(--color-text-primary); font-family: inherit; }
+  textarea { resize: vertical; line-height: 1.6; }
+  input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal-400); box-shadow: 0 0 0 2px rgba(29,158,117,0.15); }
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 8px; }
+  .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); cursor: pointer; transition: all 0.15s; }
+  .check-item:hover { border-color: var(--color-border-secondary); }
+  .check-item.selected { background: var(--teal-50); border-color: var(--teal-400); }
+  .check-item input[type="checkbox"] { margin-top: 2px; accent-color: var(--teal-400); }
+  .check-item span { font-size: 13px; color: var(--color-text-primary); line-height: 1.5; }
+
+  .nav-row { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 0.5px solid var(--color-border-tertiary); }
+  .btn-next { background: var(--teal-400); color: #fff; border: none; border-radius: var(--border-radius-md); padding: 10px 24px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.15s; }
+  .btn-next:hover { background: var(--teal-600); }
+  .btn-back { background: transparent; color: var(--color-text-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 20px; font-size: 14px; cursor: pointer; }
+  .btn-back:hover { border-color: var(--color-border-secondary); color: var(--color-text-primary); }
+
+  .summary-card { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 1.25rem; margin-bottom: 1rem; }
+  .summary-card h3 { font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .summary-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 0.5px solid var(--color-border-tertiary); font-size: 13px; gap: 12px; }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-row .sq { color: var(--color-text-secondary); flex: 1; }
+  .summary-row .sa { color: var(--color-text-primary); font-weight: 500; text-align: right; }
+
+  .policy-section { border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; margin-bottom: 1.25rem; }
+  .policy-section h4 { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px; }
+  .policy-section h4 i { font-size: 18px; color: var(--teal-400); }
+
+  .policy-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+  .policy-row .pf { flex: 1; min-width: 120px; }
+  .policy-row .pf label { font-size: 12px; color: var(--color-text-secondary); display: block; margin-bottom: 4px; }
+
+  .submit-btn { width: 100%; background: var(--teal-400); color: #fff; border: none; border-radius: var(--border-radius-md); padding: 14px; font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.15s; margin-top: 1rem; }
+  .submit-btn:hover { background: var(--teal-600); }
+
+  .done-state { text-align: center; padding: 3rem 1rem; }
+  .done-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--teal-50); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; }
+  .done-icon i { font-size: 28px; color: var(--teal-400); }
+  .done-state h2 { font-size: 18px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 8px; }
+  .done-state p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; max-width: 400px; margin: 0 auto 1.5rem; }
+  .review-btn { background: transparent; border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 20px; font-size: 14px; cursor: pointer; color: var(--color-text-secondary); margin-right: 10px; }
+  .consult-btn { background: var(--teal-400); color: #fff; border: none; border-radius: var(--border-radius-md); padding: 10px 24px; font-size: 14px; font-weight: 500; cursor: pointer; }
+</style>
+
+<h2 class="sr-only">Singapore insurance and investment opinion survey for individuals, young families, and pre-retirees</h2>
+
+<div class="survey-wrap">
+  <div class="survey-header">
+    <h1>Your Financial Protection & Investment Profile</h1>
+    <p>This short survey helps us understand your current situation and priorities — so we can have a meaningful conversation about your coverage and plans. Takes about 5 minutes.</p>
+  </div>
+
+  <div class="progress-bar-wrap">
+    <div class="progress-labels">
+      <span id="prog-label">Section 1 of 5</span>
+      <span id="prog-pct">20%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:20%"></div></div>
+  </div>
+
+  <!-- SECTION 1: Profile -->
+  <div class="section active" id="sec1">
+    <div class="section-badge badge-profile"><i class="ti ti-user" aria-hidden="true"></i> About you</div>
+    <div class="section-title">Let's start with some basics</div>
+
+    <div class="q-block">
+      <div class="q-label">1. Which life stage best describes you right now?</div>
+      <div class="option-grid" id="q1">
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Single, starting out (20s–30s)</button>
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Married, no children yet</button>
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Young family (children under 12)</button>
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Family with teens / older kids</button>
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Pre-retiree (planning retirement in 1–10 years)</button>
+        <button class="opt-btn" onclick="selectSingle('q1',this)">Retired</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">2. What is your approximate monthly household income (SGD)?</div>
+      <div class="option-grid" id="q2">
+        <button class="opt-btn" onclick="selectSingle('q2',this)">Below $3,000</button>
+        <button class="opt-btn" onclick="selectSingle('q2',this)">$3,000 – $5,999</button>
+        <button class="opt-btn" onclick="selectSingle('q2',this)">$6,000 – $9,999</button>
+        <button class="opt-btn" onclick="selectSingle('q2',this)">$10,000 – $14,999</button>
+        <button class="opt-btn" onclick="selectSingle('q2',this)">$15,000 and above</button>
+        <button class="opt-btn" onclick="selectSingle('q2',this)">Prefer not to say</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">3. What are your main financial responsibilities right now?</div>
+      <div class="q-sub">Select all that apply</div>
+      <div class="checkbox-list" id="q3">
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Supporting myself only</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Supporting a spouse / partner</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Raising children</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Supporting elderly parents</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Paying a mortgage / home loan</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Running a business</span></label>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <span></span>
+      <button class="btn-next" onclick="goTo(2)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- SECTION 2: Awareness -->
+  <div class="section" id="sec2">
+    <div class="section-badge badge-awareness"><i class="ti ti-bulb" aria-hidden="true"></i> Awareness</div>
+    <div class="section-title">What do you know about your current coverage?</div>
+
+    <div class="q-block">
+      <div class="q-label">4. How well do you feel you understand your existing insurance policies?</div>
+      <div class="scale-row" id="q4">
+        <button class="scale-btn" onclick="selectSingle('q4',this)">1</button>
+        <button class="scale-btn" onclick="selectSingle('q4',this)">2</button>
+        <button class="scale-btn" onclick="selectSingle('q4',this)">3</button>
+        <button class="scale-btn" onclick="selectSingle('q4',this)">4</button>
+        <button class="scale-btn" onclick="selectSingle('q4',this)">5</button>
+      </div>
+      <div class="scale-labels"><span>Not at all</span><span>Very well</span></div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">5. Which types of insurance do you currently hold?</div>
+      <div class="q-sub">Select all that apply</div>
+      <div class="checkbox-list" id="q5">
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>MediShield Life (mandatory)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Integrated Shield Plan (IP)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Life insurance (term or whole life)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Critical illness cover</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Personal accident plan</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Investment-linked policy (ILP)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Endowment / savings plan</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Not sure what I have</span></label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">6. When did you last review your insurance coverage?</div>
+      <div class="option-grid" id="q6">
+        <button class="opt-btn" onclick="selectSingle('q6',this)">Within the last 12 months</button>
+        <button class="opt-btn" onclick="selectSingle('q6',this)">1–3 years ago</button>
+        <button class="opt-btn" onclick="selectSingle('q6',this)">More than 3 years ago</button>
+        <button class="opt-btn" onclick="selectSingle('q6',this)">Never reviewed it</button>
+        <button class="opt-btn" onclick="selectSingle('q6',this)">Not sure</button>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(1)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" onclick="goTo(3)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- SECTION 3: Attitudes & Concerns -->
+  <div class="section" id="sec3">
+    <div class="section-badge badge-attitude"><i class="ti ti-mood-smile" aria-hidden="true"></i> Attitudes</div>
+    <div class="section-title">What worries you — and what drives your decisions?</div>
+
+    <div class="q-block">
+      <div class="q-label">7. Which financial risks concern you the most?</div>
+      <div class="q-sub">Rank your top 3 by clicking in order of priority</div>
+      <div class="checkbox-list" id="q7">
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Serious illness or hospitalisation costs</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Not having enough savings for retirement</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Losing income due to disability or illness</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Leaving my family without financial support if I pass away</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Rising costs of living / inflation eating into savings</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Children's education expenses</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Eldercare costs for parents</span></label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">8. How would you describe your attitude towards investing?</div>
+      <div class="option-grid" id="q8">
+        <button class="opt-btn" onclick="selectSingle('q8',this)">Very conservative — I prefer low risk, stable returns</button>
+        <button class="opt-btn" onclick="selectSingle('q8',this)">Balanced — willing to accept some risk for moderate returns</button>
+        <button class="opt-btn" onclick="selectSingle('q8',this)">Growth-oriented — comfortable with market ups and downs</button>
+        <button class="opt-btn" onclick="selectSingle('q8',this)">Aggressive — seeking higher returns, high risk tolerance</button>
+        <button class="opt-btn" onclick="selectSingle('q8',this)">I haven't thought much about investing yet</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">9. How satisfied are you with your current financial planning overall?</div>
+      <div class="scale-row" id="q9">
+        <button class="scale-btn" onclick="selectSingle('q9',this)">1</button>
+        <button class="scale-btn" onclick="selectSingle('q9',this)">2</button>
+        <button class="scale-btn" onclick="selectSingle('q9',this)">3</button>
+        <button class="scale-btn" onclick="selectSingle('q9',this)">4</button>
+        <button class="scale-btn" onclick="selectSingle('q9',this)">5</button>
+      </div>
+      <div class="scale-labels"><span>Very unsatisfied</span><span>Very satisfied</span></div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(2)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" onclick="goTo(4)">Next <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: Gaps & Goals -->
+  <div class="section" id="sec4">
+    <div class="section-badge badge-protection"><i class="ti ti-target" aria-hidden="true"></i> Goals & Gaps</div>
+    <div class="section-title">What would you like to achieve or improve?</div>
+
+    <div class="q-block">
+      <div class="q-label">10. Are there areas where you feel your protection may be lacking?</div>
+      <div class="q-sub">Select all that apply</div>
+      <div class="checkbox-list" id="q10">
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Income replacement if I can't work</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Hospitalisation — worried about ward class or rider gaps</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Critical illness sum assured feels too low</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Life cover (death benefit) for my dependants</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Long-term care / disability in old age</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Retirement income — not sure CPF LIFE is enough</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>I feel fairly well covered overall</span></label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">11. What is your primary financial goal in the next 5 years?</div>
+      <div class="option-grid" id="q11">
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Build up emergency savings</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Grow wealth / invest for returns</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Fund children's education</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Pay down mortgage / reduce debt</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Prepare for retirement</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Ensure family is protected if something happens to me</button>
+        <button class="opt-btn" onclick="selectSingle('q11',this)">Leave a legacy for my children</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">12. How much are you currently setting aside for savings or investments each month (SGD)?</div>
+      <div class="option-grid" id="q12">
+        <button class="opt-btn" onclick="selectSingle('q12',this)">Less than $200</button>
+        <button class="opt-btn" onclick="selectSingle('q12',this)">$200 – $499</button>
+        <button class="opt-btn" onclick="selectSingle('q12',this)">$500 – $999</button>
+        <button class="opt-btn" onclick="selectSingle('q12',this)">$1,000 – $1,999</button>
+        <button class="opt-btn" onclick="selectSingle('q12',this)">$2,000 and above</button>
+        <button class="opt-btn" onclick="selectSingle('q12',this)">Nothing at the moment</button>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-label">13. Anything else you'd like us to know before our conversation?</div>
+      <textarea id="q13" rows="3" placeholder="E.g. specific concerns, past experiences, anything on your mind…"></textarea>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(3)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" onclick="goTo(5)">Next: Policy summary <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- SECTION 5: Policy Summary -->
+  <div class="section" id="sec5">
+    <div class="section-badge badge-summary"><i class="ti ti-file-text" aria-hidden="true"></i> Policy summary</div>
+    <div class="section-title">Tell us about your existing policies</div>
+    <p style="font-size:13px;color:var(--color-text-secondary);margin-bottom:1.5rem;line-height:1.6">This helps us spot gaps and avoid duplication. Fill in what you know — even partial information is useful. Leave blank if unsure.</p>
+
+    <div id="policy-list">
+      <div class="policy-section" id="pol-0">
+        <h4><i class="ti ti-shield" aria-hidden="true"></i> Policy 1</h4>
+        <div class="policy-row">
+          <div class="pf"><label>Insurer / company</label><input type="text" placeholder="e.g. AIA, Prudential, NTUC Income…"></div>
+          <div class="pf"><label>Policy type</label>
+            <select>
+              <option value="">Select type</option>
+              <option>MediShield Life / Integrated Shield</option>
+              <option>Term life</option>
+              <option>Whole life</option>
+              <option>Critical illness</option>
+              <option>Personal accident</option>
+              <option>Endowment / savings</option>
+              <option>Investment-linked (ILP)</option>
+              <option>Annuity / retirement plan</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="policy-row">
+          <div class="pf"><label>Sum assured / coverage (SGD)</label><input type="text" placeholder="e.g. $200,000"></div>
+          <div class="pf"><label>Annual premium (SGD)</label><input type="text" placeholder="e.g. $3,600"></div>
+          <div class="pf"><label>Premium end age</label><input type="text" placeholder="e.g. 65, 99"></div>
+        </div>
+        <div class="policy-row">
+          <div class="pf" style="flex:2"><label>Riders attached (if any)</label><input type="text" placeholder="e.g. early CI rider, waiver of premium, hospital cash…"></div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-back" style="margin-bottom:1.5rem" onclick="addPolicy()"><i class="ti ti-plus" aria-hidden="true"></i> Add another policy</button>
+
+    <div class="q-block">
+      <div class="q-label" style="margin-top:0.5rem">CPF & investment accounts</div>
+      <div class="q-sub">Let us know what you have so we can see the full picture</div>
+      <div class="checkbox-list" id="q14">
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>CPF OA / SA / RA — basic contributions only</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Voluntary CPF top-ups (SA / RA)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>CPF Investment Scheme (CPFIS)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Supplementary Retirement Scheme (SRS)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Unit trusts / robo-advisors (e.g. StashAway, Syfe)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Stocks / ETFs (SGX, US markets)</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>Fixed deposits / T-bills / SSBs</span></label>
+        <label class="check-item"><input type="checkbox" onchange="syncCheck(this)"><span>None of the above</span></label>
+      </div>
+    </div>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(4)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <button class="btn-next" onclick="goTo(6)">Review & submit <i class="ti ti-arrow-right" aria-hidden="true"></i></button>
+    </div>
+  </div>
+
+  <!-- SECTION 6: Review -->
+  <div class="section" id="sec6">
+    <div class="section-badge badge-awareness"><i class="ti ti-clipboard-check" aria-hidden="true"></i> Review</div>
+    <div class="section-title">Your responses at a glance</div>
+
+    <div class="summary-card" id="review-profile">
+      <h3>About you</h3>
+      <div id="review-profile-rows"></div>
+    </div>
+    <div class="summary-card" id="review-coverage">
+      <h3>Coverage & awareness</h3>
+      <div id="review-coverage-rows"></div>
+    </div>
+    <div class="summary-card" id="review-goals">
+      <h3>Goals & concerns</h3>
+      <div id="review-goals-rows"></div>
+    </div>
+
+    <button class="submit-btn" onclick="goTo(7)"><i class="ti ti-send" aria-hidden="true"></i> Submit & schedule consultation</button>
+
+    <div class="nav-row">
+      <button class="btn-back" onclick="goTo(5)"><i class="ti ti-arrow-left" aria-hidden="true"></i> Back</button>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- Done -->
+  <div class="section" id="sec7">
+    <div class="done-state">
+      <div class="done-icon"><i class="ti ti-circle-check" aria-hidden="true"></i></div>
+      <h2>Thank you — we're ready to talk!</h2>
+      <p>Your responses have been saved. A financial consultant will reach out to schedule a complimentary review. In the meantime, feel free to gather your policy documents.</p>
+      <div>
+        <button class="review-btn" onclick="goTo(6)"><i class="ti ti-edit" aria-hidden="true"></i> Edit responses</button>
+        <button class="consult-btn" onclick="sendPrompt('Based on the survey responses, what insurance and investment gaps should I address and what policies should I consider?')">Ask about my plan ↗</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let polCount = 1;
+const sections = 6;
+
+function goTo(n) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec' + n).classList.add('active');
+  if (n <= sections) {
+    const pct = Math.round((n / sections) * 100);
+    document.getElementById('prog-fill').style.width = pct + '%';
+    document.getElementById('prog-pct').textContent = pct + '%';
+    document.getElementById('prog-label').textContent = 'Section ' + n + ' of ' + sections;
+  }
+  if (n === 6) buildReview();
+  window.scrollTo && window.scrollTo(0, 0);
+}
+
+function selectSingle(groupId, el) {
+  document.querySelectorAll('#' + groupId + ' .opt-btn, #' + groupId + ' .scale-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+function syncCheck(cb) {
+  const item = cb.closest('.check-item');
+  if (cb.checked) item.classList.add('selected');
+  else item.classList.remove('selected');
+}
+
+function addPolicy() {
+  polCount++;
+  const icons = ['ti-shield','ti-heart','ti-activity','ti-coins'];
+  const icon = icons[Math.min(polCount-1, icons.length-1)];
+  const div = document.createElement('div');
+  div.className = 'policy-section';
+  div.id = 'pol-' + (polCount-1);
+  div.innerHTML = `<h4><i class="ti ${icon}" aria-hidden="true"></i> Policy ${polCount}</h4>
+    <div class="policy-row">
+      <div class="pf"><label>Insurer / company</label><input type="text" placeholder="e.g. Manulife, Great Eastern…"></div>
+      <div class="pf"><label>Policy type</label><select><option value="">Select type</option><option>MediShield Life / Integrated Shield</option><option>Term life</option><option>Whole life</option><option>Critical illness</option><option>Personal accident</option><option>Endowment / savings</option><option>Investment-linked (ILP)</option><option>Annuity / retirement plan</option><option>Other</option></select></div>
+    </div>
+    <div class="policy-row">
+      <div class="pf"><label>Sum assured (SGD)</label><input type="text" placeholder="e.g. $100,000"></div>
+      <div class="pf"><label>Annual premium (SGD)</label><input type="text" placeholder="e.g. $1,800"></div>
+      <div class="pf"><label>Premium end age</label><input type="text" placeholder="e.g. 70"></div>
+    </div>`;
+  document.getElementById('policy-list').appendChild(div);
+}
+
+function getSelected(id) {
+  const selected = [];
+  const group = document.getElementById(id);
+  if (!group) return '—';
+  group.querySelectorAll('.opt-btn.selected, .scale-btn.selected').forEach(b => selected.push(b.textContent.trim()));
+  group.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+    const span = cb.closest('.check-item')?.querySelector('span');
+    if (span) selected.push(span.textContent.trim());
+  });
+  return selected.length ? selected.join(', ') : '—';
+}
+
+function buildReview() {
+  const pr = document.getElementById('review-profile-rows');
+  pr.innerHTML = row('Life stage', getSelected('q1')) + row('Household income', getSelected('q2')) + row('Financial responsibilities', getSelected('q3'));
+  const cr = document.getElementById('review-coverage-rows');
+  cr.innerHTML = row('Understanding of policies', getSelected('q4') + ' / 5') + row('Policies held', getSelected('q5')) + row('Last reviewed', getSelected('q6'));
+  const gr = document.getElementById('review-goals-rows');
+  gr.innerHTML = row('Top concerns', getSelected('q7')) + row('Investment attitude', getSelected('q8')) + row('Satisfaction', getSelected('q9') + ' / 5') + row('Gaps identified', getSelected('q10')) + row('Primary 5-year goal', getSelected('q11')) + row('Monthly savings', getSelected('q12'));
+}
+
+function row(q, a) {
+  return `<div class="summary-row"><span class="sq">${q}</span><span class="sa">${a}</span></div>`;
+}
+</script>
